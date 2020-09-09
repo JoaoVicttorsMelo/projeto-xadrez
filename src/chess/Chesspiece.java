@@ -3,7 +3,7 @@ package chess;
 import boardgame.Board;
 import boardgame.Piece;
 
-public class Chesspiece extends Piece{
+public abstract class Chesspiece extends Piece{
 	private Color color;
 	
 	public Chesspiece() {
@@ -17,6 +17,8 @@ public class Chesspiece extends Piece{
 	public Color getColor() {
 		return color;
 	}
+
+
 	
 	
 
