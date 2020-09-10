@@ -47,6 +47,12 @@ public class ChessMatch {
 		return capturedPiece;
 
 	}
+	
+	public boolean[][] possibleMoves(ChessPosition sourcePosition){
+		Position position = sourcePosition.toPosition();
+		return board.piece(position).possibleMoves();
+		
+	}
 
 	private void validateSourcePosition(Position position) {
 		if (!board.ThereIsAPiece(position)) {
