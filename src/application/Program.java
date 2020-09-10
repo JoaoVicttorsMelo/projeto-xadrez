@@ -38,12 +38,17 @@ public class Program {
 				if (capturedPiece != null) {
 					list.add(capturedPiece);
 				}
-				if(chessMatch.getPromotion() != null) {
+				if (chessMatch.getPromotion() != null) {
 					System.out.println("Enter piece for promotion (B/N/R/Q): ");
-					String type= sc.nextLine();
+					String type = sc.nextLine();
+					while (!type.equalsIgnoreCase("B") && !type.equalsIgnoreCase("N") && !type.equalsIgnoreCase("R")
+							&& !type.equalsIgnoreCase("Q")) {
+		
+						System.out.println("INALID VALUE! Enter piece for promotion (B/N/R/Q): ");
+						 type = sc.nextLine();					}
 					chessMatch.ReplacePromotedPiece(type);
 				}
-				
+
 			} catch (ChessException e) {
 				System.out.println(e.getMessage());
 				sc.nextLine();

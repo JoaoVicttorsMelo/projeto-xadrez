@@ -1,6 +1,5 @@
 package chess;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -113,25 +112,29 @@ public class ChessMatch {
 
 	public Chesspiece ReplacePromotedPiece(String type) {
 		if (promotion == null) {
-			throw new IllegalStateException("There is no piece to be promoted");
+			return promotion;
 		}
 		if (!type.equalsIgnoreCase("B") && !type.equalsIgnoreCase("N") && !type.equalsIgnoreCase("R")
 				&& !type.equalsIgnoreCase("Q")) {
-			throw new InvalidParameterException("Invalid type for promotion");
+			return promotion;
 		}
-		Position pos= promotion.getChessPosition().toPosition();
-		Piece p= board.removePiece(pos);
+		Position pos = promotion.getChessPosition().toPosition();
+		Piece p = board.removePiece(pos);
 		piecesOnTheBoard.remove(p);
-		Chesspiece newPiece= newPiece(type,promotion.getColor());
-		board.PlacePiece(newPiece,pos);
+		Chesspiece newPiece = newPiece(type, promotion.getColor());
+		board.PlacePiece(newPiece, pos);
 		piecesOnTheBoard.add(newPiece);
 		return newPiece;
 	}
+
 	private Chesspiece newPiece(String type, Color color) {
-		if(type.equalsIgnoreCase("B")) return new Bishop(board,color);
-		if(type.equalsIgnoreCase("N")) return new Knight(board,color);
-		if(type.equalsIgnoreCase("Q")) return new Queen(board,color);
-		return new Rook(board,color);
+		if (type.equalsIgnoreCase("B"))
+			return new Bishop(board, color);
+		if (type.equalsIgnoreCase("N"))
+			return new Knight(board, color);
+		if (type.equalsIgnoreCase("Q"))
+			return new Queen(board, color);
+		return new Rook(board, color);
 
 	}
 
