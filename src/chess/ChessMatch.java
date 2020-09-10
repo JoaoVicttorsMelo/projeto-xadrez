@@ -1,5 +1,6 @@
 package chess;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ public class ChessMatch {
 	private List<Piece> capturedPieces = new ArrayList<>();
 	private boolean checkMate;
 	private Chesspiece enPassantVulnerable;
+	private Chesspiece promotion;
 
 	public ChessMatch() {
 		board = new Board(8, 8);
@@ -61,6 +63,10 @@ public class ChessMatch {
 		return checkMate;
 	}
 
+	public Chesspiece getPromotion() {
+		return promotion;
+	}
+
 	public Chesspiece performChessMove(ChessPosition sourcePosition, ChessPosition targetPosition) {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
@@ -73,6 +79,17 @@ public class ChessMatch {
 			throw new ChessException("You can´t put yourself in check");
 		}
 		Chesspiece movedPiece = (Chesspiece) board.piece(target);
+
+		// promotion
+
+		promotion = null;
+		if (movedPiece instanceof Pawn) {
+			if (movedPiece.getColor() == Color.WHITE && target.getRow() == 0
+					|| movedPiece.getColor() == Color.BLACK && target.getRow() == 7) {
+				promotion = (Chesspiece) board.piece(target);
+				promotion = ReplacePromotedPiece("Q");
+			}
+		}
 
 		check = (testCheck(opponent(currentPlayer))) ? true : false;
 
@@ -91,6 +108,30 @@ public class ChessMatch {
 		}
 
 		return (Chesspiece) capturedPiece;
+
+	}
+
+	public Chesspiece ReplacePromotedPiece(String type) {
+		if (promotion == null) {
+			throw new IllegalStateException("There is no piece to be promoted");
+		}
+		if (!type.equalsIgnoreCase("B") && !type.equalsIgnoreCase("N") && !type.equalsIgnoreCase("R")
+				&& !type.equalsIgnoreCase("Q")) {
+			throw new InvalidParameterException("Invalid type for promotion");
+		}
+		Position pos= promotion.getChessPosition().toPosition();
+		Piece p= board.removePiece(pos);
+		piecesOnTheBoard.remove(p);
+		Chesspiece newPiece= newPiece(type,promotion.getColor());
+		board.PlacePiece(newPiece,pos);
+		piecesOnTheBoard.add(newPiece);
+		return newPiece;
+	}
+	private Chesspiece newPiece(String type, Color color) {
+		if(type.equalsIgnoreCase("B")) return new Bishop(board,color);
+		if(type.equalsIgnoreCase("N")) return new Knight(board,color);
+		if(type.equalsIgnoreCase("Q")) return new Queen(board,color);
+		return new Rook(board,color);
 
 	}
 
