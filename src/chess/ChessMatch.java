@@ -170,7 +170,6 @@ public class ChessMatch {
 			Chesspiece rook = (Chesspiece) board.removePiece(sourceT);
 			board.PlacePiece(rook, targetT);
 			rook.increaseMoveCount();
-
 		}
 
 		// En Passant
@@ -336,7 +335,7 @@ public class ChessMatch {
 		placeNewPiece('f', 2, new Pawn(board, Color.WHITE, this));
 		placeNewPiece('g', 2, new Pawn(board, Color.WHITE, this));
 		placeNewPiece('h', 2, new Pawn(board, Color.WHITE, this));
-
+//-----------------------------------------------------------------------
 		placeNewPiece('a', 8, new Rook(board, Color.BLACK));
 		placeNewPiece('c', 8, new Bishop(board, Color.BLACK));
 		placeNewPiece('b', 8, new Knight(board, Color.BLACK));

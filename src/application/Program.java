@@ -27,7 +27,6 @@ public class Program {
 				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
 				UI.clearScreen();
 				UI.printBoard(chessMatch.getPieces(), possibleMoves);
-				;
 
 				System.out.println();
 				System.out.print("Target: ");
@@ -43,9 +42,10 @@ public class Program {
 					String type = sc.nextLine();
 					while (!type.equalsIgnoreCase("B") && !type.equalsIgnoreCase("N") && !type.equalsIgnoreCase("R")
 							&& !type.equalsIgnoreCase("Q")) {
-		
+
 						System.out.println("INALID VALUE! Enter piece for promotion (B/N/R/Q): ");
-						 type = sc.nextLine();					}
+						type = sc.nextLine();
+					}
 					chessMatch.ReplacePromotedPiece(type);
 				}
 
@@ -54,6 +54,9 @@ public class Program {
 				sc.nextLine();
 			} catch (InputMismatchException e) {
 				System.out.println(e.getMessage());
+				sc.nextLine();
+			} catch (NullPointerException e) {
+				System.out.println("There is no piece in source \nPress Enter");
 				sc.nextLine();
 			}
 		}

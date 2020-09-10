@@ -6,13 +6,11 @@ public class Position {
 
 	public Position() {
 	}
-	
 
 	public Position(Integer row, Integer column) {
 		this.row = row;
 		this.column = column;
 	}
-
 
 	public Integer getRow() {
 		return row;
@@ -29,18 +27,15 @@ public class Position {
 	public void setColumn(Integer column) {
 		this.column = column;
 	}
-	
+
 	public void setValues(int row, int column) {
-		this.row=row;
-		this.column=column;
+		this.row = row;
+		this.column = column;
 	}
-	
+
 	@Override
 	public String toString() {
-		return row+ ", "+ column;
+		return row + ", " + column;
 	}
-	
-	
-	
 
 }

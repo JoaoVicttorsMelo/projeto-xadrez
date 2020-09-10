@@ -46,24 +46,23 @@ public class UI {
 			throw new InputMismatchException("Erro reading ChessPosition. Valid values are from a1 to h8");
 		}
 	}
-	
-	public static void printMatch(ChessMatch chessMatch,List<Chesspiece> list) {
+
+	public static void printMatch(ChessMatch chessMatch, List<Chesspiece> list) {
 		printBoard(chessMatch.getPieces());
 		System.out.println();
 		printCapturesPieces(list);
 		System.out.println();
-		System.out.println("Turn: "+ chessMatch.getTurn());
-		
-		if(!chessMatch.getCheckMate()) {	
-		System.out.println("Waiting player: "+ chessMatch.getCurrentPlayer());
-		
-		if(chessMatch.getCheck()) {
-			System.out.println("CHECK");
+		System.out.println("Turn: " + chessMatch.getTurn());
+
+		if (!chessMatch.getCheckMate()) {
+			System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
+
+			if (chessMatch.getCheck()) {
+				System.out.println("CHECK");
 			}
-		}
-		else {
+		} else {
 			System.out.println("CHECKMATE!");
-			System.out.println("Winner: "+ chessMatch.getCurrentPlayer());
+			System.out.println("Winner: " + chessMatch.getCurrentPlayer());
 		}
 	}
 
@@ -112,20 +111,22 @@ public class UI {
 		System.out.print(" ");
 
 	}
-	
+
 	private static void printCapturesPieces(List<Chesspiece> captures) {
-		List<Chesspiece> white= captures.stream().filter(x-> x.getColor()== Color.WHITE).collect(Collectors.toList());		
-		List<Chesspiece> black= captures.stream().filter(x-> x.getColor()== Color.BLACK).collect(Collectors.toList());
-	System.out.println("Captures pieces: ");
-	System.out.print("white: ");
-	System.out.print(ANSI_WHITE);
-	System.out.println(Arrays.toString(white.toArray()));
-	System.out.print(ANSI_RESET);
-	System.out.print("Black: ");
-	System.out.print(ANSI_YELLOW);
-	System.out.println(Arrays.toString(black.toArray()));
-	System.out.print(ANSI_RESET);
-	System.out.println();
+		List<Chesspiece> white = captures.stream().filter(x -> x.getColor() == Color.WHITE)
+				.collect(Collectors.toList());
+		List<Chesspiece> black = captures.stream().filter(x -> x.getColor() == Color.BLACK)
+				.collect(Collectors.toList());
+		System.out.println("Captures pieces: ");
+		System.out.print("white: ");
+		System.out.print(ANSI_WHITE);
+		System.out.println(Arrays.toString(white.toArray()));
+		System.out.print(ANSI_RESET);
+		System.out.print("Black: ");
+		System.out.print(ANSI_YELLOW);
+		System.out.println(Arrays.toString(black.toArray()));
+		System.out.print(ANSI_RESET);
+		System.out.println();
 	}
 
 }
